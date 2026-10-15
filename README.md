@@ -4,24 +4,17 @@ Read-only [MCP](https://modelcontextprotocol.io) server for [Virtuous CRM+](http
 
 v0.1 is read-only on purpose. The client is created with `readOnly: true`, so a write is rejected before it is sent. `VIRTUOUS_ALLOW_WRITES` is parsed, but it does not register write tools. Writes arrive in v0.2, behind that flag and a confirm step.
 
-Built on [virtuous-ts](https://github.com/animalaidunlimited/virtuous-ts) 1.1.
+Built on [virtuous-ts](https://github.com/animalaidunlimited/virtuous-ts) ^1.1.0 from npm.
 
 ## Install and run
 
-Requires Node 20+.
+Requires Node 20+. No clone is required:
 
 ```bash
-npm install
-npm run build
+npx -y virtuous-ts-mcp
 ```
 
-Set the environment (see `.env.example`). Then:
-
-```bash
-npx virtuous-ts-mcp
-```
-
-Or, from a checkout: `node dist/index.js`. The process speaks MCP on stdin/stdout. Logs go to stderr only.
+The process speaks MCP on stdin/stdout. Logs go to stderr only. Set these variables in the host `env` (see Client setup). From a shell, export them before the command. Names and defaults match `.env.example`.
 
 | Variable | Default | Notes |
 |---|---|---|
@@ -30,6 +23,16 @@ Or, from a checkout: `node dist/index.js`. The process speaks MCP on stdin/stdou
 | `VIRTUOUS_MAX_RECORDS` | `10000` | Hard cap for `query_gifts` and `query_contacts`. |
 | `VIRTUOUS_RATE_RESERVE` | `50` | Refuse a call when remaining quota is at or below this. |
 | `VIRTUOUS_ALLOW_WRITES` | `false` | Parsed. v0.1 ignores it and stays read-only. |
+
+### From source
+
+```bash
+git clone https://github.com/animalaidunlimited/virtuous-ts-mcp.git
+cd virtuous-ts-mcp
+npm install
+npm run build
+node dist/index.js
+```
 
 ## Client setup
 
@@ -79,14 +82,14 @@ claude mcp add virtuous --env VIRTUOUS_API_KEY=your-read-only-key -- npx -y virt
 
 ### Grok Bot / Hermes
 
-Same shape: a `command` plus `env`. Point `command` at `npx` (args `["-y", "virtuous-ts-mcp"]`) or at `node` with args `["/absolute/path/to/dist/index.js"]` after `npm run build`.
+Same shape: a `command` plus `env`.
 
 ```json
 {
   "mcpServers": {
     "virtuous": {
-      "command": "node",
-      "args": ["/absolute/path/to/virtuous-ts-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "virtuous-ts-mcp"],
       "env": {
         "VIRTUOUS_API_KEY": "your-read-only-key",
         "VIRTUOUS_RATE_RESERVE": "50"
@@ -95,6 +98,8 @@ Same shape: a `command` plus `env`. Point `command` at `npx` (args `["-y", "virt
   }
 }
 ```
+
+From a checkout, point `command` at `node` and `args` at the absolute path of `dist/index.js` after `npm run build`.
 
 ## Tool reference
 
@@ -159,27 +164,9 @@ npm run inspector # MCP Inspector against dist/index.js
 
 `npm run test:live` points at a skipped test. It does not call Virtuous. Do not add a live runner to the default test script.
 
-## Switching to the published virtuous-ts
+## Dependency
 
-This repo depends on a local build:
-
-```json
-"virtuous-ts": "file:../virtuous-ts-v1.1"
-```
-
-Once 1.1.0 is on npm, replace that line with:
-
-```json
-"virtuous-ts": "^1.1.0"
-```
-
-If you need a git pin before publish:
-
-```json
-"virtuous-ts": "github:animalaidunlimited/virtuous-ts#v1.1.0"
-```
-
-Then `npm install` again. The public API used here (`VirtuousClient`, `queryAll`, `listAll`, `validateQuery`, `queryAllGifts`, `queryAllContacts`) is stable in 1.1.
+This package depends on [virtuous-ts](https://www.npmjs.com/package/virtuous-ts) `^1.1.0` from npm. The public API used here (`VirtuousClient`, `queryAll`, `listAll`, `validateQuery`, `queryAllGifts`, `queryAllContacts`) is stable in 1.1.
 
 ## Deviations from spec
 

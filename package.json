@@ -17,7 +17,8 @@
     "test": "vitest run",
     "test:live": "vitest run tests/live.test.ts",
     "start": "node dist/index.js",
-    "inspector": "npx --yes @modelcontextprotocol/inspector node dist/index.js"
+    "inspector": "npx --yes @modelcontextprotocol/inspector node dist/index.js",
+    "prepublishOnly": "npm run typecheck && npm test && npm run build"
   },
   "engines": {
     "node": ">=20"
@@ -36,7 +37,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "virtuous-ts": "file:../virtuous-ts-v1.1",
+    "virtuous-ts": "^1.1.0",
     "zod": "^4.5.4"
   },
   "devDependencies": {
