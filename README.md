@@ -4,7 +4,7 @@ Read-only [MCP](https://modelcontextprotocol.io) server for [Virtuous CRM+](http
 
 v0.1 is read-only on purpose. The client is created with `readOnly: true`, so a write is rejected before it is sent. `VIRTUOUS_ALLOW_WRITES` is parsed, but it does not register write tools. Writes arrive in v0.2, behind that flag and a confirm step.
 
-Built on [virtuous-ts](https://github.com/animalaidunlimited/virtuous-ts) ^1.1.0 from npm.
+Built on [virtuous-ts](https://github.com/animalaidunlimited/virtuous-ts) ^1.1.2 from npm.
 
 ## Install and run
 
@@ -166,7 +166,7 @@ npm run inspector # MCP Inspector against dist/index.js
 
 ## Dependency
 
-This package depends on [virtuous-ts](https://www.npmjs.com/package/virtuous-ts) `^1.1.0` from npm. The public API used here (`VirtuousClient`, `queryAll`, `listAll`, `validateQuery`, `queryAllGifts`, `queryAllContacts`) is stable in 1.1.
+This package depends on [virtuous-ts](https://www.npmjs.com/package/virtuous-ts) `^1.1.2` from npm. The public API used here (`VirtuousClient`, `queryAll`, `listAll`, `validateQuery`, `queryAllGifts`, `queryAllContacts`) is stable in 1.1.
 
 ## Deviations from spec
 
