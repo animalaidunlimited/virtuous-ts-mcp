@@ -1,6 +1,6 @@
 # virtuous-ts-mcp
 
-Read-only [MCP](https://modelcontextprotocol.io) server for [Virtuous CRM+](https://www.virtuoussoftware.com/). It gives a host (Claude Desktop, Cursor, Grok Bot, Hermes) twelve curated tools for contacts, gifts, and campaigns. The model never sees your API key. The host calls this process, and this process calls Virtuous.
+Read-only [MCP](https://modelcontextprotocol.io) server for [Virtuous CRM+](https://www.virtuoussoftware.com/). It gives a host (Claude Desktop, Cursor, Grok Bot) twelve curated tools for contacts, gifts, and campaigns. The model never sees your API key. The host calls this process, and this process calls Virtuous.
 
 v0.1 is read-only on purpose. The client is created with `readOnly: true`, so a write is rejected before it is sent. `VIRTUOUS_ALLOW_WRITES` is parsed, but it does not register write tools. Writes arrive in v0.2, behind that flag and a confirm step.
 
@@ -80,7 +80,7 @@ claude mcp add virtuous --env VIRTUOUS_API_KEY=your-read-only-key -- npx -y virt
 }
 ```
 
-### Grok Bot / Hermes
+### Grok Bot
 
 Same shape: a `command` plus `env`.
 
